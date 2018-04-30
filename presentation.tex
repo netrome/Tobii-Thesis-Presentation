@@ -1,4 +1,21 @@
 \documentclass{beamer}
+
+\usepackage[acronym]{glossaries}
+\makeglossaries
+\newacronym{gan}{GAN}{Generative Adversarial Network}
+\newacronym{gans}{GANs}{Generative Adversarial Networks}
+\newacronym{vae}{VAE}{Variational Autoencoder}
+\newacronym{vaes}{VAEs}{Variational Autoencoders}
+\newacronym{mse}{MSE}{Mean Squared Error}
+\newacronym{aevb}{AEVB}{Auto Encoding Variational Bayes}
+\newacronym{cnn}{CNN}{Convolutional Neural Network}
+\newacronym{cnns}{CNNs}{Convolutional Neural Networks}
+\newacronym{is}{IS}{Inception Score}
+\newacronym{fid}{FID}{Fréchet Inception Distance}
+\newacronym{wgan}{WGAN}{Wasserstein GAN}
+\newacronym{aegan}{AEGAN}{Autoencoding GAN}
+\newacronym{roi}{ROI}{Region Of Interest}
+\newacronym{vaegan}{VAEGAN}{Variational Autoencoder + Generative Adversarial Network}
   
 \usetheme{Tobii}
 
@@ -14,24 +31,26 @@
 % Sample frames --------------------------------------------------
 \frame{\titlepage}
 
-\begin{sectionframe}
-    \frametitle{Frame title}
-    Section frame
-\end{sectionframe}
-
-\begin{messageframe}
-    \frametitle{Frame title}
-    message frame
-\end{messageframe}
-
-\statementslide{Statement slide}{images/banana.png}
-\statementslideB{Statement slide B}{images/banana.png}
-
-\plainslide{Slide title}{Plain slide}
-
-\textandpicslideA{Title}{Text and pic slide A}{images/banana.png}
-\textandpicslideB{Title}{Text and pic slide B}{images/banana.png}
-
+%\begin{sectionframe}
+%    \frametitle{Frame title}
+%    Section frame
+%\end{sectionframe}
+%
+%\begin{messageframe}
+%    \frametitle{Frame title}
+%    message frame
+%\end{messageframe}
+%
+%\messageslide{Message slide}
+%
+%\statementslide{Statement slide}{images/banana.png}
+%\statementslideB{Statement slide B}{images/banana.png}
+%
+%\plainslide{Slide title}{Plain slide}
+%
+%\textandpicslideA{Title}{Text and pic slide A}{images/banana.png}
+%\textandpicslideB{Title}{Text and pic slide B}{images/banana.png}
+%
 % Structure of presentation ------
 % Agenda and subject presentation
 % Establish importance of topic (why generative models?, what are they useful for?, why are we interested in them?)
@@ -40,5 +59,96 @@
 % Present the tested methods and results
 % Interpret results
 % Final remarks and conclusions
+
+\plainslide{Outline}{
+    \begin{itemize}
+        \item Generative Models
+        \item Deep Generative Models: GANs and VAEs
+        \item Data augmentation with Deep Generative Models  % Talk about the current research
+        \item Experiments and results
+        \item Concluding remarks
+    \end{itemize}
+}
+
+\messageslide{Generative Models}
+
+\begin{messageframe}
+    \frametitle{What is a generative model?}
+\end{messageframe}
+
+\begin{messageframe}
+    \frametitle{Why do we care for generative models?}
+\end{messageframe}
+
+\messageslide{Deep Generative Models}
+
+\begin{messageframe}
+    \frametitle{\acrfull{vaes}}
+\end{messageframe}
+
+\begin{messageframe}
+    \frametitle{\acrfull{gans}}
+\end{messageframe}
+
+\begin{messageframe}
+    \frametitle{\acrshort{gans} in practice}
+    List properties and approaches here.
+\end{messageframe}
+
+\messageslide{Data Augmentation}
+
+\begin{messageframe}
+    \frametitle{The question}
+    \textit{"Can deep generative models be applied to generate synthetic data sets that can be used to boost the performance of existing discriminative models?"}
+    
+    \vspace{1.5cm}
+    
+    In other words:
+    
+    "Can we generate \textbf{useful} data?"
+\end{messageframe}
+
+\begin{messageframe}
+    \frametitle{Measuring the usability of the data}
+    Train classifier separately on both generated and real data.
+\end{messageframe}
+
+\begin{messageframe}
+    \frametitle{Generating labeled data}
+    No special cases needed - there is no difference between labeled and unlabeled data.
+\end{messageframe}
+
+\messageslide{Experiments and Results}
+
+\begin{messageframe}
+    \frametitle{Tested models}
+    WGAN, VAE, AEGAN (Progressive GAN).
+\end{messageframe}
+
+\statementslideB{Sampling from prior}{images/banana.png}
+
+\statementslideB{Encoding and decoding}{images/banana.png}
+
+\begin{messageframe}
+    \frametitle{Results on synthetic data}
+    This is a table
+\end{messageframe}
+
+\begin{messageframe}
+    \frametitle{Results on DeepGaze data}
+    This is a table
+\end{messageframe}
+
+\begin{messageframe}
+    \frametitle{Results on toy experiments}
+    This is a table
+\end{messageframe}
+
+
+\messageslide{Concluding remarks}
+
+\statementslide{Questions?}{images/banana.png}
+
+\statementslide{Thank you}{images/banana.png}
 
 \end{document}

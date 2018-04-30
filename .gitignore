@@ -9,4 +9,7 @@
 *.snm
 *.pdf
 *.toc
+*.acn
+*.glo
+*.ist
 images
