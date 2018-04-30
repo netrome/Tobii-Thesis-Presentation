@@ -1,0 +1,221 @@
+%% THEME FILE FOR BEAMER trying to look like the tobii presentations
+
+\ProcessOptionsBeamer
+
+%Requirement
+\RequirePackage{tikz}
+
+%Required to make textpos and pgfpages play nice.
+
+%Settings
+%\usepackage[absolute, overlay]{textpos}
+\usepackage{graphicx}
+\useinnertheme{Tobii}
+\useoutertheme{Tobii}
+\usecolortheme{Tobii}
+
+
+\setbeamersize{text margin left=5mm,text margin right=5mm}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{calc}
+\usepackage{multicol}
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+
+
+\setbeamerfont{title}{family=\fontspec{AkzidGroCFFBol.otf}}
+\setbeamerfont{subtitle}{family=\fontspec{asdfg1}}
+\setbeamerfont{author}{family=\fontspec{AkzidGroCFFReg.otf}}
+\setbeamerfont{footline}{family=\fontspec{AkzidGroCFFReg.otf},
+size=\fontsize{8}{8}}
+\setbeamerfont{frametitle}{family=\fontspec{AkzidGroCFFBol.otf}}
+\setbeamerfont{framesubtitle}{family=\fontspec{AkzidGroCFFReg.otf}}
+\setbeamerfont{section in toc}{family=\fontspec{AkzidGroCFFBol.otf}}
+\setbeamerfont{block body}{family=\fontspec{AkzidGroCFFReg.otf},
+size=\small}
+
+
+\newenvironment{contentcolumn}
+{
+	\begin{column}{.45\linewidth}
+		\minipage[l][\textheight][l]{\linewidth}
+}
+{
+			\vfill
+			\color{Secondary}
+			\rule{\linewidth}{1.5pt}%
+		\endminipage
+	\end{column}
+}
+
+
+\newenvironment{sectionframe}
+{
+	\setbeamertemplate{background}
+	{
+		\includegraphics[width=\paperwidth,height=\paperheight]{FadeBkg.png}
+	}
+
+	\setbeamercolor{footline}{fg=white}
+
+	\setbeamertemplate{footline}
+	{%
+		\positionfooter
+		\positionlogo{Tobii_Tech_Logo_white.eps}
+	}
+
+	\setbeamercolor{frametitle}{fg=white}
+	\begin{frame}
+}
+{
+	\end{frame}
+}
+
+\newcommand{\sectionslide}
+{
+	\begin{sectionframe}
+		\frametitle{\insertsection}
+	\end{sectionframe}
+}
+
+\newenvironment{messageframe}
+{%
+	\setbeamertemplate{background}
+	{%
+		\includegraphics[width=\paperwidth, height=\paperheight]{MessageBkg.png}
+	}%
+ 	\setbeamertemplate{footline}
+ 	{%
+ 		\positionfooter
+ 	}%
+ 	\setbeamerfont{block body}{family=\fontspec{TeleVoiceRegular}, size=\huge}
+ 	\setbeamercolor{block body}{fg=Secondary}
+	\begin{frame}[c]
+}%
+{\end{frame}}%
+
+\newcommand{\messageslide}[1]
+{
+	\begin{messageframe}
+		\begin{columns}[c,totalwidth=\linewidth]
+			\begin{column}{0.5\linewidth}
+				\begin{block}{}
+					#1
+				\end{block}
+			\end{column}
+			\begin{column}{0.5\linewidth}
+			\end{column}
+		\end{columns}
+	\end{messageframe}
+}
+
+\newcommand{\statementslide}[2]
+{
+	{
+		\setbeamercolor{background canvas}{bg=Primary}
+		\setbeamertemplate{background}
+		{
+			\includegraphics[width=\paperwidth]{#2}
+		}
+		\setbeamertemplate{footline}
+		{
+			\positionlogo{Tobii_Tech_Logo_white.eps}
+		}
+		\setbeamerfont{block body}{family=\fontspec{TeleVoiceRegular},
+		size=\fontsize{35}{35}}
+	 	\setbeamercolor{block body}{fg=white}
+		\begin{frame}[c]
+			\vskip20mm
+			\begin{block}{}
+	 			\begin{center}
+				#1
+	 			\end{center}
+			\end{block}
+		\end{frame}
+	}
+}
+
+
+\newcommand{\statementslideB}[2]
+{
+	{
+		\setbeamercolor{background canvas}{bg=Primary}
+		\setbeamertemplate{background}
+		{
+			\includegraphics[width=\paperwidth]{#2}
+		}
+		\setbeamertemplate{footline}
+		{
+			\positionlogo{Tobii_Tech_Logo_white.eps}
+		}
+		\setbeamerfont{block body}{family=\fontspec{TeleVoiceRegular}}
+	 	\setbeamercolor{block body}{fg=white}
+	 	\setbeamercolor{frametitle}{fg=white}
+		\begin{frame}{#1}
+		\end{frame}
+	}
+}
+
+\newcommand{\plainslide}[2]
+{
+	\begin{frame}{#1}%
+		\small%
+		{%
+			#2%
+		}
+ 	\end{frame}
+}
+
+\newcommand{\textandpicslideA}[3]
+{
+	\begin{frame}{#1}
+		\begin{columns}[T, totalwidth=\linewidth]
+			\begin{column}{0.49\linewidth}
+				\color{Secondary}
+    			\rule{\linewidth}{1.5pt}%
+    			\medskip\noindent
+    			\color{black}
+    			\small{
+					#2
+				}
+			\end{column}
+			\hfill
+			\begin{column}{0.49\linewidth}
+				%\includegraphics[width=\columnwidth]{#3}
+				\includegraphics[width=\columnwidth,height=\textheight,keepaspectratio]{#3}
+			\end{column}
+		\end{columns}
+	\end{frame}
+}
+
+\newcommand{\textandpicslideB}[3]
+{
+	\begin{frame}{#1}
+		\begin{columns}[T, totalwidth=\linewidth]
+			\begin{column}{0.49\linewidth}
+% 				\includegraphics[width=\columnwidth]{#3}
+				\includegraphics[width=\columnwidth,height=\textheight,keepaspectratio]{#3}
+			\end{column}
+			\hfill
+			\begin{column}{0.49\linewidth}
+				\minipage[l][\textheight][l]{\columnwidth}
+	    			\vfill
+	    			\small{
+						#2
+					}
+					\color{Secondary}
+	    			\rule{\linewidth}{1.5pt}%
+    			\endminipage
+			\end{column}
+		\end{columns}
+	\end{frame}
+}
+
+
+
+
+\mode
+<all>

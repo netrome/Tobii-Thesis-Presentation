@@ -1,0 +1,44 @@
+%% Outer theme for Tobii
+\RequirePackage{tikz}
+\usepackage{calc}
+\defbeamertemplate*{frametitle}{Tobii}
+{
+	\vskip3.75mm%
+	\begin{beamercolorbox}[colsep=0pt]{frametitle}%
+% 		\begin{textblock*}{\paperwidth}(5mm, 5mm)%
+			\insertframetitle%
+% 		\end{textblock*}%
+	\end{beamercolorbox}%
+}
+
+\newcommand{\positionlogo}[1]
+{
+	\begin{tikzpicture}[remember picture,overlay]
+		\node[anchor=south east,xshift=-4mm, yshift=3mm] at (current page.south east)
+		{\includegraphics[width=16mm]{#1}};
+	\end{tikzpicture}
+}
+
+\newcommand{\positionfooter}
+{
+	\begin{beamercolorbox}{footline}%
+		\hskip5mm%
+		\insertshorttitle\hskip5mm%
+	    \textbf{\insertframenumber\ /\ \inserttotalframenumber}%
+	\end{beamercolorbox}%
+    \vskip3.75mm
+}
+
+\defbeamertemplate*{footline}{Tobii}
+{%
+	\vskip20mm
+	\ifnum\c@framenumber>1%
+		\setbeamercolor{footline}{fg=Secondary}
+		\positionfooter
+		\positionlogo{Tobii_Tech_Logo_Royal.eps}
+	\else%
+		\setbeamercolor{footline}{fg=white}
+		\positionfooter
+	\fi%
+}
+
