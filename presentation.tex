@@ -2,19 +2,33 @@
   
 \usetheme{Tobii}
 
-\title{My presentation}
-\author{Derpa Herpa}
+\title{Data Augmentation with Deep Generative Models}
+\author{Mårten Nilsson}
 \institute{Tobii}
 \date{2018}
 
 \begin{document}
 
+% Tobii presentation of Mårtens GAN thesis project
+
 \frame{\titlepage}
 
-\begin{frame}
-\frametitle{My first page}
-This is the first page of my presentation \pause
-Yo it is quite cool
-\end{frame}
+\begin{sectionframe}
+    \frametitle{Frame title}
+    Section frame
+\end{sectionframe}
+
+\begin{messageframe}
+    \frametitle{Frame title}
+    message frame
+\end{messageframe}
+
+\statementslide{Statement slide}{images/banana.png}
+\statementslideB{Statement slide B}{images/banana.png}
+
+\plainslide{Slide title}{Plain slide}
+
+\textandpicslideA{Title}{Text and pic slide A}{images/banana.png}
+\textandpicslideB{Title}{Text and pic slide B}{images/banana.png}
 
 \end{document}
