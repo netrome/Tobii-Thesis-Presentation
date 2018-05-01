@@ -80,6 +80,12 @@
 \begin{messageframe}
     \frametitle{What is a generative model?}
 
+    \begin{itemize}
+            \item A model capable of producing data similar to what the model have been trained on
+            \item Different from discriminative models
+            \item Example: Gaussian Mixture Models
+    \end{itemize}
+
 \end{messageframe}
 
 \begin{messageframe}
@@ -101,10 +107,27 @@
 
 \begin{messageframe}
     \frametitle{\acrfull{vaes}}
+    \begin{itemize}
+            \item Consists of an encoder and a decoder
+            \item These can be convolutional neural networks
+            \item The encoder is used for modelling $P(latent | data)$
+            \item The decoder is used for modelling $P(data | latent)$
+            \item Model parameters learned through variational inference
+            \item Trained with two objectives
+            \begin{itemize}
+                \item $P(latent | data)$ should be similar to a specific prior distribution $P(latent)$
+                \item $P(data | latent)$ where $latent$ is sampled from $P(latent | data)$ should give a high likelihood to the conditioned data point
+            \end{itemize}
+    \end{itemize}
 \end{messageframe}
 
 \begin{messageframe}
     \frametitle{\acrfull{gans}}
+
+    \begin{itemize}
+            \item Consists of a generator and a discriminator
+            \item These can be convolutional neural networks
+    \end{itemize}
 \end{messageframe}
 
 \begin{messageframe}
