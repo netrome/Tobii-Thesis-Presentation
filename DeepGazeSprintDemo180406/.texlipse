@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Thu Apr 05 10:05:03 CEST 2018
+markTmpDer=true
+builderNum=7
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=SprintDemo180406.tex
+outputFile=SprintDemo180406.pdf
+langSpell=en
+markDer=true
+srcDir=

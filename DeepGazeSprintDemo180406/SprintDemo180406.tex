@@ -1,0 +1,285 @@
+%% LaTeX Beamer presentation template (requires beamer package)
+%% see http://bitbucket.org/rivanvx/beamer/wiki/Home
+%% idea contributed by H. Turgut Uyar
+%% template based on a template by Till Tantau
+%% this template is still evolving - it might differ in future releases!
+
+\documentclass[aspectratio=1610,t,notes=hide]{beamer}
+\usepackage{pgfpages}
+\renewcommand\pgfsetupphysicalpagesizes{%
+  \pdfpagewidth\pgfphysicalwidth\pdfpageheight\pgfphysicalheight%
+}
+
+\usepackage{../TobiiTemplate/beamerthemeTobii}
+\setbeamercovered{transparent}
+
+\usepackage[english]{babel}
+\usepackage[latin1]{inputenc}
+
+% font definitions, try \usepackage{ae} instead of the following
+% three lines if you don't like this look
+\usepackage{mathptmx}
+\usepackage{amsmath}
+\usepackage[scaled=.90]{helvet}
+\usepackage{courier}
+\usepackage{multicol}
+\usepackage{soul}
+
+\usepackage[T1]{fontenc}
+
+\titlegraphic{\includegraphics[scale=0.08]{../TobiiTemplate/Tobii_Tech_logo_color2_RGB.eps}}
+\title{Deep Gaze Sprint Demo: 2018/04/06}
+
+\subtitle{}
+
+\author{Alexander Davies}
+
+\date{2018/04/06}
+
+\AtBeginSection[]
+{
+	\sectionslide{\insertsection}
+}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\plainslide{}
+{
+	\vskip1cm
+	\begin{columns}[T, totalwidth=\linewidth]
+		\begin{contentcolumn}
+	    	\tableofcontents[sections={1-2}]
+		\end{contentcolumn}
+		\begin{contentcolumn}
+			\tableofcontents[sections={3-4}]
+		\end{contentcolumn}
+    \end{columns}
+}
+
+\section{Project Timeline}
+
+\messageslide{We are aiming for Aware}
+
+\plainslide{Project Timeline}
+{
+Given that we are now focusing on aware, a preliminary project timeline has been
+drawn up
+
+\begin{centering}
+\only<1>{\input{projectTimeLine_g1.pdf_tex}}
+\only<2>{\input{projectTimeLine_g2.pdf_tex}}
+\only<3>{\input{projectTimeLine_g3.pdf_tex}}
+\only<4>{\input{projectTimeLine_g4.pdf_tex}}
+\only<5>{\input{projectTimeLine_g5.pdf_tex}}
+\only<6>{\input{projectTimeLine_g6.pdf_tex}}
+\only<7>{\input{projectTimeLine_g7.pdf_tex}}
+\only<8>{\input{projectTimeLine_g8.pdf_tex}}
+\only<9>{\input{projectTimeLine_g9.pdf_tex}}
+\end{centering}
+}
+
+\section{Confidence Signal}
+
+\plainslide{Implementing a Confidence Signal}
+{
+The desire for a gaze confidence signal has long been desired at Tobii. An early
+implementation has been tested:
+\begin{itemize}
+  \item Outputs a Gaussian of uncertainty centred around the gaze point
+  \item Correlation coefficient between accuracy error and uncertainty is 0.4 
+  \item Tends to over fit and seems ``overly confident'' 
+\end{itemize}
+Sources of uncertainty
+\begin{itemize}
+  \item Image information e.g. eye occlusion, glints and squinting
+  \item Subject behaviour uncertainty e.g. not looking at points
+  \item Subject anatomical uncertainty e.g. eye drift and lazy eye, 
+\end{itemize}
+}
+
+\section{Experiments}
+
+\subsection{Training}
+
+\plainslide{Understand our Training Process Set Better}
+{
+\emph{Motivation:}\\
+Our training process was very much a black box. We were unsure of
+\begin{itemize}
+  \item Choice of training parameters
+  \item Choice of optimiser
+  \item Causes of strange behaviour observed in the loss curves over the
+  validation set
+\end{itemize}
+\emph{Methodology:}\\
+We ran a series of training runs (without calibration) on the data set and
+varied
+\begin{itemize}
+  \item The learning parameters e.g. learning rate and weight decay
+  \item The type of optimiser used e.g. SGD, NAG and ADAM
+\end{itemize}
+}
+
+\plainslide{Understand our Training Process Set Better}
+{
+\emph{Challenges:}\\
+In order to explore a large parameter space, a tiny subset of the full data set
+was created to speed up training experiments
+
+\begin{itemize}
+  \item Tiny dataset caused the training process to be too unstable
+  \item A larger \emph{small} dataset was created
+\end{itemize}
+
+}
+
+\plainslide{Understand our Training Process Set Better}
+{
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{plots/tiny_dataset_very_unstable.png}
+\caption{Training on different data sets: tiny (orange), small (red), full
+(blue)}
+\end{figure}
+}
+
+\plainslide{Understand our Training Process Set Better}
+{
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{plots/DEEP-118_exp1_exp5_exp7.png}
+\caption{Varying Learning rates: Low learning rate results in higher error but
+smoother error curve (blue) whereas a high learning rate results in a lower
+error but more erratic curve (pink). All trained on full data set}
+\end{figure}
+}
+
+\plainslide{Understand our Training Process Set Better}
+{
+\emph{Conclusions:}\\
+\begin{itemize}
+  \item The small data set is more stable and can be used in the place of the
+  full data set.
+  \item Trade off between the best loss on the validation set and the stability
+  of the loss curve during evaluation.
+\end{itemize}
+
+}
+
+\subsection{Calibration}
+
+\plainslide{Shuffled Vs. Sorted Calibration}
+{
+\emph{Motivation:}\\
+Concerned that the following points:
+\begin{itemize}
+  \item In shuffled calibration, frames for a single subject are
+  spread across batches.
+  \item Suspicion that ADAM optimiser suffers from ``crosstalk'' between subject
+  parameters
+\end{itemize}
+Would impede or disrupt convergence in calibration
+
+\emph{Methodology:}\\
+\begin{itemize}
+  \item Experiments were run on the same ``inthewild-v1" testset with the
+same pretrained MobileNet-100 model.
+  \item Learning rates: 1e-2, 1e-5 were tested
+  \item Optimisers: SGD and ADAM were tested
+  \item Run shuffled (as normal) and sorted where all frames in batch belong to
+  the same subject
+\end{itemize} 
+}
+
+\plainslide{Shuffled Vs. Sorted Calibration}
+{
+\emph{Results:}
+\begin{center}
+  \begin{tabular}{lc}
+  Calibration Setting & Error (In Clandestine training after 50 epochs) [mm]\\ 
+  \hline
+  SGD (1e-2), Shuffled & 24\\
+  SGD (1e-2), Sorted & 24\\ 
+  ADAM (1e-2), Sorted & 25\\
+  \end{tabular}
+\end{center}
+\emph{Conclusions:}
+\begin{itemize}
+  \item Shuffling the frames does not seem to be a problem.
+  \item ADAM and SGD have similar performance, with a slight advantage for SGD.
+\end{itemize}
+}
+
+\plainslide{Shuffled Vs. Sorted Calibration}
+{
+\emph{Results}
+\input{plots/calibration_experiments_1.pgf} 
+}
+
+\plainslide{Shuffled Vs. Sorted Calibration}
+{
+\emph{Results}
+\input{plots/calibration_experiments_2.pgf} 
+}
+
+\plainslide{Shuffled Vs. Sorted Calibration}
+{
+\emph{Conclusions:}
+\begin{itemize}
+  \item Learning rate 1e-5 is too low - calibration does not converge in
+  reasonable time.
+  \item Running ADAM in Shuffled mode is equivalent to increasing the learning
+  rate due to the momentum.
+\end{itemize}
+} 
+
+
+\section{Live Demo Uncalibrated}
+
+\plainslide{Live Demo}
+{
+What this live demo is:
+\begin{itemize}
+  \item Running live on G6 
+  \item MobileNet-50 on full scale eye patches
+  \item Uncalibrated
+  \item Gives us a first impression of how it will run live
+\end{itemize}
+This demo was implemented by calling PyTorch from the AlgoBox using Cython. It
+is a hack and only a proof of concept
+}
+
+\textandpicslideA{Live Demo: Cython}
+{
+Cython = C + Python
+\begin{itemize}
+  \item Makes it possible to run Python code live from the AlgoBox
+  \item No need to recompile
+  \item Access to python APIs for Deep Learning e.g. TensorFlow, PyTorch
+  \item Fast to implement
+\end{itemize}
+}
+{images/CythonGood.jpg}
+
+\textandpicslideA{Live Demo: Cython}
+{
+Cython = \st{C + Python} C*nt + Python
+\begin{itemize}
+  \item Autogenerated C/C++ code is horrendous
+  \item Code can crash in Python interpreter \emph{and} AlgoBox
+  \item No error messages: ``Segfault'' is all you get
+  \item Memory leaks
+  \item Calibrated Live Demo to be moved further to a later date
+\end{itemize}
+}
+{images/CythonBad.jpg}
+
+\statementslide{DEMO TIME!}{images/Zipping_down_with_slugs_(Calypso_Park).jpg}
+
+
+
+\end{document}

@@ -1,0 +1,239 @@
+\documentclass{beamer}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{siunitx}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage[acronym]{glossaries}
+\makeglossaries
+\newacronym{gan}{GAN}{Generative Adversarial Network}
+\newacronym{gans}{GANs}{Generative Adversarial Networks}
+\newacronym{vae}{VAE}{Variational Autoencoder}
+\newacronym{vaes}{VAEs}{Variational Autoencoders}
+\newacronym{mse}{MSE}{Mean Squared Error}
+\newacronym{aevb}{AEVB}{Auto Encoding Variational Bayes}
+\newacronym{cnn}{CNN}{Convolutional Neural Network}
+\newacronym{cnns}{CNNs}{Convolutional Neural Networks}
+\newacronym{is}{IS}{Inception Score}
+\newacronym{fid}{FID}{Fréchet Inception Distance}
+\newacronym{wgan}{WGAN}{Wasserstein GAN}
+\newacronym{aegan}{AEGAN}{Autoencoding GAN}
+\newacronym{roi}{ROI}{Region Of Interest}
+\newacronym{vaegan}{VAEGAN}{Variational Autoencoder + Generative Adversarial Network}
+  
+\usepackage{../TobiiTemplate/beamerthemeTobii}
+\setbeamercovered{transparent}
+
+\title{Data Augmentation with Deep Generative Models}
+\author{Mårten Nilsson}
+\institute{Tobii}
+\date{2018}
+
+\begin{document}
+
+% Tobii presentation of Mårtens GAN thesis project
+
+% Sample frames --------------------------------------------------
+\frame{\titlepage}
+
+%\begin{sectionframe}
+%    \frametitle{Frame title}
+%    Section frame
+%\end{sectionframe}
+%
+%\begin{messageframe}
+%    \frametitle{Frame title}
+%    message frame
+%\end{messageframe}
+%
+%\messageslide{Message slide}
+%
+%\statementslide{Statement slide}{images/banana.png}
+%\statementslideB{Statement slide B}{images/banana.png}
+%
+%\plainslide{Slide title}{Plain slide}
+%
+%\textandpicslideA{Title}{Text and pic slide A}{images/banana.png}
+%\textandpicslideB{Title}{Text and pic slide B}{images/banana.png}
+%
+% Structure of presentation ------
+% Agenda and subject presentation
+% Establish importance of topic (why generative models?, what are they useful for?, why are we interested in them?)
+% Establish problem formulation for generative models, includning some pitfalls (ill posed questions etc).
+% Provide some backround knowledge
+% Present the tested methods and results
+% Interpret results
+% Final remarks and conclusions
+
+\plainslide{Outline}{
+    \begin{itemize}
+        \item Generative Models
+        \item Deep Generative Models: GANs and VAEs
+        \item Data augmentation with Deep Generative Models  % Talk about the current research
+        \item Experiments and results
+        \item Concluding remarks
+    \end{itemize}
+}
+
+\messageslide{Generative Models}
+
+\begin{messageframe}
+    \frametitle{What is a generative model?}
+\end{messageframe}
+
+\begin{messageframe}
+    \frametitle{Why do we care for generative models?}
+\end{messageframe}
+
+\messageslide{Deep Generative Models}
+
+\begin{messageframe}
+    \frametitle{\acrfull{vaes}}
+\end{messageframe}
+
+\begin{messageframe}
+    \frametitle{\acrfull{gans}}
+\end{messageframe}
+
+\begin{messageframe}
+    \frametitle{\acrshort{gans} in practice}
+    List properties and approaches here.
+\end{messageframe}
+
+\messageslide{Data Augmentation}
+
+\begin{messageframe}
+    \frametitle{The question}
+    \textit{"Can deep generative models be applied to generate synthetic data sets that can be used to boost the performance of existing discriminative models?"}
+    
+    \vspace{1.5cm}
+    
+    In other words:
+
+    "Can we generate \textbf{useful} data?"
+\end{messageframe}
+
+\begin{messageframe}
+    \frametitle{Measuring the usability of the data}
+    Train classifier separately on both generated and real data.
+\end{messageframe}
+
+\begin{messageframe}
+    \frametitle{Generating labeled data}
+    No special cases needed - there is no difference between labeled and unlabeled data.
+\end{messageframe}
+
+\messageslide{Experiments and Results}
+
+\begin{messageframe}
+    \frametitle{Tested models}
+    WGAN, VAE, AEGAN (Progressive GAN).
+\end{messageframe}
+
+\statementslideB{WGAN}{images/generated/wasserstein_fake_6x4.png}
+
+\statementslideB{VAE}{images/generated/vae_fake_6x4.png}
+
+\statementslideB{AEGAN}{images/generated/aegan_fake_6x4.png}
+
+\plainslide{Results: synthetic data}{
+
+    \begin{table}[t]
+        \centering
+        \begin{subtable}{0.9\textwidth}
+            \begin{tabular}{|l|lll|}
+                \cline{2-4}
+                \multicolumn{1}{c|}{} & \multicolumn{3}{c|}{\textbf{Jaccard distance}} \\ \hline
+                \textbf{Training data} & \acrshort{wgan} & VAE & \acrshort{aegan} \\ \hline
+                Fake & \num{0.8132} & \num{0.159} & \textbf{\num{0.148}} \\
+                Fake + real & \num{0.1219} & \textbf{\num{0.0944}} & \num{0.1032} \\
+                \hline
+                Real & \multicolumn{3}{c|}{\num{0.09607}} \\
+                \hline
+            \end{tabular}
+            \caption{Tested on the real test data.}
+            \label{subtab:on_real}
+        \end{subtable}
+        \begin{subtable}{0.9\textwidth}
+            \begin{tabular}{|l|lll|}
+                \cline{2-4}
+                \multicolumn{1}{c|}{} & \multicolumn{3}{c|}{\textbf{Jaccard distance}} \\ \hline
+                \textbf{Training data} & \acrshort{wgan} & VAE & \acrshort{aegan} \\ \hline
+                Fake & \textbf{\num{4.82e-5}} & \num{0.0133} & \num{0.0491} \\ 
+                Real & \num{0.1855} & \textbf{\num{0.0264}} & \num{0.1225} \\ 
+                \hline
+            \end{tabular}
+            \caption{Test data generated by the generative models.}
+            \label{subtab:on_fake}
+        \end{subtable}
+    \end{table}
+}
+
+\plainslide{Results: DeepGaze data}{
+    \begin{table}[t]
+        \centering
+        \begin{subtable}{0.9\textwidth}
+            \begin{tabular}{|l|lll|}
+                \cline{2-4}
+                \multicolumn{1}{c|}{} & \multicolumn{3}{c|}{\textbf{Jaccard distance}} \\ \hline
+                \textbf{Training data} & \acrshort{wgan} & VAE & \acrshort{aegan} \\ \hline
+                Fake & \num{0.9966} & \num{0.3445} & \textbf{\num{0.2084}} \\
+                Fake + real & \num{0.1215} & \textbf{\num{0.1151}} & \num{0.1221} \\
+                \hline
+                Real & \multicolumn{3}{c|}{\num{0.11456}} \\
+                \hline
+            \end{tabular}
+            \caption{Tested on the real test data.}
+        \end{subtable}
+        \begin{subtable}{0.9\textwidth}
+            \begin{tabular}{|l|lll|}
+                \cline{2-4}
+                \multicolumn{1}{c|}{} & \multicolumn{3}{c|}{\textbf{Jaccard distance}} \\ \hline
+                \textbf{Training data} & \acrshort{wgan} & VAE & \acrshort{aegan} \\ \hline
+                Fake & \textbf{\num{8.795e-6}} & \num{0.0284} & \num{0.0457} \\ 
+                Real & \num{0.8798} & \num{0.1008} & \textbf{\num{0.0786}} \\ 
+                \hline
+            \end{tabular}
+            \caption{Test data generated by the generative models.}
+        \end{subtable}
+    \end{table}
+}
+
+\plainslide{Results: toy experiments}{
+    \begin{table}[t]
+        \centering
+        \label{tab:toy_experiments}
+        \begin{subtable}{0.9\textwidth}
+            \scalebox{0.7}{
+                \begin{tabular}{|l|ll|ll|ll|ll|}
+                    \cline{2-9}
+                    \multicolumn{1}{c|}{ } & \multicolumn{2}{c|}{Baseline} & \multicolumn{2}{c|}{WGAN} & \multicolumn{2}{c|}{VAE} & \multicolumn{2}{c|}{AEGAN} \\ \cline{2-9}
+                    \multicolumn{1}{c|}{} & Mean & Std & Mean & Std & Mean & Std & Mean & Std \\ \hline
+                    Error rate ($\%$) & \num{32.00} & \num{3.0792} & \num{33.33333} & \num{3.399} & \num{30.666} & \num{4.38178} & \textbf{\num{28.80}} & \num{2.0221} \\
+                    \hline
+                \end{tabular}
+            }
+            \caption{Iris}
+        \end{subtable}
+        \begin{subtable}{0.9\textwidth}
+            \scalebox{0.7}{
+                \begin{tabular}{|l|lll|l|l|}
+                    \cline{2-6}
+                    \multicolumn{1}{c|}{} & Baseline 100 & Baseline 200 & Baseline 400 & VAE & AEGAN \\ \hline
+                    Error rate ($\%$) & \num{0.90} & \num{1.02} & \num{0.87} & \num{1.33} & \textbf{\num{0.86}} \\ \hline
+                \end{tabular}
+            }
+            \caption{MNIST}
+        \end{subtable}
+    \end{table}
+}
+
+
+\messageslide{Concluding remarks}
+
+\statementslide{Questions?}{images/banana.png}
+
+\statementslide{Thank you}{images/banana.png}
+
+\end{document}

@@ -1,0 +1,78 @@
+%% Creator: Inkscape inkscape 0.91, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'projectTimeLine_g6.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{426.79135132bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.46861306)%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{projectTimeLine_g6.pdf}}%
+    \put(0.14125336,0.25954009){\color[rgb]{0.00784314,0.08627451,0.12156863}\makebox(0,0)[lb]{\smash{April}}}%
+    \put(0.46325747,0.26008078){\color[rgb]{0.00784314,0.08627451,0.12156863}\makebox(0,0)[lb]{\smash{May}}}%
+    \put(0.79128661,0.25994349){\color[rgb]{0.00784314,0.08627451,0.12156863}\makebox(0,0)[lb]{\smash{June}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{projectTimeLine_g6.pdf}}%
+    \put(0.07497809,0.20618975){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
+    \put(0.0808333,0.19213135){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{6}}}%
+    \put(0.05746576,0.1784411){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.12183939\unitlength}\raggedright \tiny{G6 \\ Live Uncalib.}\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{projectTimeLine_g6.pdf}}%
+    \put(0.22730112,0.19213135){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{20}}}%
+    \put(0.14977066,0.18669357){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.10328038\unitlength}\raggedright \end{minipage}}}%
+    \put(0.19748693,0.17802923){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.07029196\unitlength}\raggedright \tiny{G6 \\ Live Calib.}\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{projectTimeLine_g6.pdf}}%
+    \put(0.2680086,0.19179957){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{22}}}%
+    \put(0.26978723,0.1784411){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.09258557\unitlength}\raggedright \tiny{Start \\ Data Collection Top \\ and Bottom}\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{projectTimeLine_g6.pdf}}%
+    \put(0.40993901,0.19213135){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{9}}}%
+    \put(0.3843097,0.17802934){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.08236652\unitlength}\raggedright \tiny{Finished Data Collection Bottom}\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{projectTimeLine_g6.pdf}}%
+    \put(0.49041203,0.19213135){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{16}}}%
+    \put(0.48314324,0.17802789){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.08236647\unitlength}\raggedright \tiny{Finished Data Collection Top}\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{projectTimeLine_g6.pdf}}%
+    \put(0.56759521,0.19213135){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{23}}}%
+    \put(0.57186783,0.1787516){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.07195235\unitlength}\raggedright \tiny{Aware Offline Bottom}\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{projectTimeLine_g6.pdf}}%
+  \end{picture}%
+\endgroup%

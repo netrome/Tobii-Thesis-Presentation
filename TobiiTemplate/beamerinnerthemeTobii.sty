@@ -1,0 +1,26 @@
+\mode<presentation>
+
+\setbeamertemplate{background}{%
+    \ifnum\c@framenumber=1%
+       \includegraphics[width=\paperwidth,height=\paperheight]{../TobiiTemplate/CoverBkg2.png}
+       \fi%
+}
+
+
+\defbeamertemplate*{title page}{Tobii}[1][]
+{
+	\vskip6mm%
+	\inserttitlegraphic\par%
+	\vskip5mm
+	\begin{beamercolorbox}{title}
+		\usebeamerfont{title}\inserttitle\par%
+	\end{beamercolorbox}
+	\begin{beamercolorbox}{author}
+	  	\usebeamerfont{author}\insertsubtitle
+	\end{beamercolorbox}
+	%\end{textblock*}
+}
+
+
+\setbeamertemplate{items}[square]
+\setbeamertemplate{sections/subsections in toc}[square]
