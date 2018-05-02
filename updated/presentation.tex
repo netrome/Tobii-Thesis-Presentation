@@ -120,13 +120,21 @@
 \plainslide{\acrfull{gans}}{
 
     \begin{itemize}
-            \item Consists of a generator and a discriminator
-            \item These can be convolutional neural networks
+        \item Consists of a generator and a discriminator
+        \item These can be convolutional neural networks
+        \item The discriminator is trained to distinguish fake and real images
+        \item The generator is trained to fool the discriminator
     \end{itemize}
 }
 
 \plainslide{\acrshort{gans} in practice}{
-    List properties and approaches here.
+    \begin{itemize}
+        \item Notoriously unstable
+        \item Non-convergence
+        \item Mode-collapse
+        \item Lots of variants proposed (\acrshort{wgan}, Progressive \acrshort{gan}, AC\_GAN, LSGAN, BEGAN, DRAGAN, DCGAN etc...)
+        \item Difficult to compare different models due to a lack of good quantitative evaluation measures.
+    \end{itemize}
 }
 
 \sectionslide{Data Augmentation}
@@ -161,11 +169,25 @@
     Additional toy experiments on the MNIST and iris data sets.
 }
 
+\plainslide{Network architectures}{
+    TODOslide
+}
+
+\statementslideB{Reference batch}{images/reference_6x4.png}
+
 \statementslideB{WGAN}{images/generated/wasserstein_fake_6x4.png}
 
 \statementslideB{VAE}{images/generated/vae_fake_6x4.png}
 
 \statementslideB{AEGAN}{images/generated/aegan_fake_6x4.png}
+
+\statementslideB{Reference batch}{images/ref_g6_6x4.png}
+
+\statementslideB{WGAN}{images/generated/wgan_g6_6x4.png}
+
+\statementslideB{VAE}{images/generated/vae_g6_6x4.png}
+
+\statementslideB{AEGAN}{images/generated/aegan_g6_6x4.png}
 
 \plainslide{Results: synthetic data}{
 
@@ -262,8 +284,8 @@
 
 \sectionslide{Concluding remarks}
 
-\statementslide{Questions?}{images/banana.png}
+\statementslide{Questions?}{images/closed.png}
 
-\statementslide{Thank you}{images/banana.png}
+\statementslide{Thank you}{images/opened.png}
 
 \end{document}
