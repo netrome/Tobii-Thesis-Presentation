@@ -23,7 +23,6 @@
 \newacronym{vaegan}{VAEGAN}{Variational Autoencoder + Generative Adversarial Network}
   
 \usepackage{../TobiiTemplate/beamerthemeTobii}
-\setbeamercovered{transparent}
 
 \title{Data Augmentation with Deep Generative Models}
 \author{Mårten Nilsson}
@@ -68,7 +67,7 @@
 
 \plainslide{Outline}{
     \begin{itemize}
-        \item Generative Models
+        \item Generative Modelling
         \item Deep Generative Models: GANs and VAEs
         \item Data augmentation with Deep Generative Models  % Talk about the current research
         \item Experiments and results
@@ -76,60 +75,91 @@
     \end{itemize}
 }
 
-\messageslide{Generative Models}
+\sectionslide{Generative Modelling}
 
-\begin{messageframe}
-    \frametitle{What is a generative model?}
-\end{messageframe}
+\plainslide{What is a generative model?}{
 
-\begin{messageframe}
-    \frametitle{Why do we care for generative models?}
-\end{messageframe}
+    \begin{itemize}
+        \item A model capable of producing data similar to what the model have been trained on
+        \item Different from discriminative models
+        \item Example: Gaussian Mixture Models
+    \end{itemize}
+}
 
-\messageslide{Deep Generative Models}
+\plainslide{Why do we care about generative modelling?}{
+    \textit{"What I cannot create I do not understand"} 
 
-\begin{messageframe}
-    \frametitle{\acrfull{vaes}}
-\end{messageframe}
+    - Richard Feynman
+    \begin{itemize}
+        \item Compression
+        \item Augmentation
+        \item Anonymization (GDPR)
+        \item Domain adaptation
 
-\begin{messageframe}
-    \frametitle{\acrfull{gans}}
-\end{messageframe}
+            - Both Apple and Google utilize it for gaze estimation
+    \end{itemize}
+}
 
-\begin{messageframe}
-    \frametitle{\acrshort{gans} in practice}
+\sectionslide{Deep Generative Models}
+
+\plainslide{\acrfull{vaes}}{
+    \begin{itemize}
+        \item Consists of an encoder and a decoder
+        \item These can be convolutional neural networks
+        \item The encoder is used for modelling $P(latent | data)$
+        \item The decoder is used for modelling $P(data | latent)$
+        \item Model parameters learned through variational inference
+        \item Trained with two objectives
+            \begin{itemize}
+                \item $P(latent | data)$ should be similar to a specific prior distribution $P(latent)$
+                \item $P(data | latent)$ where $latent$ is sampled from $P(latent | data)$ should give a high likelihood to the conditioned data point
+            \end{itemize}
+    \end{itemize}
+}
+
+\plainslide{\acrfull{gans}}{
+
+    \begin{itemize}
+            \item Consists of a generator and a discriminator
+            \item These can be convolutional neural networks
+    \end{itemize}
+}
+
+\plainslide{\acrshort{gans} in practice}{
     List properties and approaches here.
-\end{messageframe}
+}
 
-\messageslide{Data Augmentation}
+\sectionslide{Data Augmentation}
 
-\begin{messageframe}
-    \frametitle{The question}
+\plainslide{The question}{
     \textit{"Can deep generative models be applied to generate synthetic data sets that can be used to boost the performance of existing discriminative models?"}
-    
+
     \vspace{1.5cm}
-    
+
     In other words:
 
     "Can we generate \textbf{useful} data?"
-\end{messageframe}
+}
 
-\begin{messageframe}
-    \frametitle{Measuring the usability of the data}
+\plainslide{Measuring the usability of the data}{
+    Historically difficult to evaluate \acrshort{gans}
+
     Train classifier separately on both generated and real data.
-\end{messageframe}
+}
 
-\begin{messageframe}
-    \frametitle{Generating labeled data}
+\plainslide{Generating labeled data}{
     No special cases needed - there is no difference between labeled and unlabeled data.
-\end{messageframe}
+}
 
-\messageslide{Experiments and Results}
+\sectionslide{Experiments and Results}
 
-\begin{messageframe}
-    \frametitle{Tested models}
+\plainslide{Tested models}{
     WGAN, VAE, AEGAN (Progressive GAN).
-\end{messageframe}
+
+    Tested on synthetic data as well as G6 data.
+
+    Additional toy experiments on the MNIST and iris data sets.
+}
 
 \statementslideB{WGAN}{images/generated/wasserstein_fake_6x4.png}
 
@@ -230,7 +260,7 @@
 }
 
 
-\messageslide{Concluding remarks}
+\sectionslide{Concluding remarks}
 
 \statementslide{Questions?}{images/banana.png}
 
