@@ -71,7 +71,6 @@
         \item Deep Generative Models: GANs and VAEs
         \item Data augmentation with Deep Generative Models  % Talk about the current research
         \item Experiments and results
-        \item Concluding remarks
     \end{itemize}
 }
 
@@ -81,8 +80,10 @@
 
     \begin{itemize}
         \item A model capable of producing data similar to what the model have been trained on
-        \item Different from discriminative models
-        \item Example: Gaussian Mixture Models
+        \item Learns the distribution of the data 
+
+            (in contrast to discriminative models)
+        \item Example: Naive Bayes, Gaussian Mixtures, Hidden Markov Models etc. 
     \end{itemize}
 }
 
@@ -106,8 +107,8 @@
     \begin{itemize}
         \item Consists of an encoder and a decoder
         \item These can be convolutional neural networks
-        \item The encoder is used for modelling $P(latent | data)$
-        \item The decoder is used for modelling $P(data | latent)$
+        \item The encoder models $P(latent | data)$
+        \item The decoder models $P(data | latent)$
         \item Model parameters learned through variational inference
         \item Trained with two objectives
             \begin{itemize}
@@ -122,7 +123,7 @@
     \begin{itemize}
         \item Consists of a generator and a discriminator
         \item These can be convolutional neural networks
-        \item The discriminator is trained to distinguish fake and real images
+        \item The discriminator is trained to distinguish fake images from real images
         \item The generator is trained to fool the discriminator
     \end{itemize}
 }
@@ -132,8 +133,8 @@
         \item Notoriously unstable
         \item Non-convergence
         \item Mode-collapse
-        \item Lots of variants proposed (\acrshort{wgan}, Progressive \acrshort{gan}, AC\_GAN, LSGAN, BEGAN, DRAGAN, DCGAN etc...)
-        \item Difficult to compare different models due to a lack of good quantitative evaluation measures.
+        \item Lots of variants proposed (\acrshort{wgan}, Progressive \acrshort{gan}, ACGAN, LSGAN, BEGAN, DRAGAN, DCGAN etc...)
+        \item Difficult to compare different models due to a lack of good quantitative evaluation measures
     \end{itemize}
 }
 
@@ -150,27 +151,156 @@
 }
 
 \plainslide{Measuring the usability of the data}{
-    Historically difficult to evaluate \acrshort{gans}
-
-    Train classifier separately on both generated and real data.
+    \begin{itemize}
+        \item Historically difficult to evaluate \acrshort{gans}
+        \item Common measures are \acrlong{is} and \acrlong{fid}
+        \item Both of these are only valid for ImageNet
+        \item There is a need for a custom evaluation measure
+    \end{itemize}
 }
 
-\plainslide{Generating labeled data}{
-    No special cases needed - there is no difference between labeled and unlabeled data.
+\plainslide{Evaluation by classification}{
+    \begin{itemize}
+        \item Introduce a discriminative network (pupil localization)
+        \item Train this network on generated data and test on real data
+            \begin{itemize}
+                \item Usable and interpretable measure of data quality
+                \item Extend this by changing the training and test data sets
+            \end{itemize}
+    \end{itemize}
 }
+
+
+\textandpicslideA{Generating annotated data}{
+    \begin{itemize}
+        \item Deep generative models are unsupervised
+        \item The classifier needs annotated data
+        \item But...
+    \end{itemize}
+}{images/misc/example_image.png}
+
+\textandpicslideA{Generating annotated data}{
+    The annotations can also be represented as images
+}{images/misc/example_heatmap.png}
+
+\textandpicslideA{Generating annotated data}{
+    \begin{itemize}
+        \item The data can be represented as 2-channel images
+        \item This results in an unsupervised problem
+        \item Generating annotations means increased complexity
+    \end{itemize}
+}{images/misc/example_cat.png}
 
 \sectionslide{Experiments and Results}
 
-\plainslide{Tested models}{
-    WGAN, VAE, AEGAN (Progressive GAN).
+\plainslide{Experiments}{
+    The tested models:
+    \begin{itemize}
+        \item \acrshort{wgan}
+        \item \acrshort{vae}
+        \item \acrshort{aegan}
+        \item (Progressive \acrshort{gan})
+    \end{itemize}
 
-    Tested on synthetic data as well as G6 data.
+    Main experiments perfromed on:
+    \begin{itemize}
+        \item Syntheteic data (blender)
+        \item DeepGaze data 
+    \end{itemize}
 
-    Additional toy experiments on the MNIST and iris data sets.
+    Additional toy experiments: 
+    \begin{itemize}
+        \item MNIST
+        \item Iris
+    \end{itemize}
 }
 
-\plainslide{Network architectures}{
-    TODOslide
+\plainslide{Network architectures (generator)}{
+    \begin{table}[t]
+        \centering
+        \scalebox{0.8}{
+            \begin{tabular}{|lll|}
+                \hline
+                %\multicolumn{3}{c}{Generator}           \\ 
+                Operation          & Output shape     & Stride \\ \hline
+                Input              & 128x1x1   & 1      \\
+                Conv 4x4           & 128x4x4   & 1      \\
+                Conv 3x3           & 128x4x4   & 1      \\ \hline
+                Transpose Conv 2x2 & 128x8x8   & 2      \\
+                Conv 3x3           & 112x8x8   & 1      \\ \hline
+                Transpose Conv 2x2 & 11216x16   & 2      \\
+                Conv 3x3           & 96x16x16   & 1      \\ \hline
+                Transpose Conv 2x2 & 96x32x32   & 2      \\
+                Conv 3x3           & 80x32x32   & 1      \\ \hline
+                Transpose Conv 2x2 & 80x64x64   & 2      \\
+                Conv 3x3           & 64x64x64   & 1      \\ \hline
+                Transpose Conv 2x2 & 64x128x128   & 2      \\
+                Conv 3x3           & 32x128x128   & 1      \\ \hline
+                Transpose Conv 2x2 & 32x256x256   & 2      \\
+                Conv 3x3           & 16x256x256   & 1      \\ \hline
+                Conv 1x1           & 2x256x256 & 1        \\ \hline
+            \end{tabular}
+        }
+    \end{table}
+}
+
+\plainslide{Network architectures (discriminator)}{
+    \begin{table}[t]
+        \centering
+        \scalebox{0.8}{
+            \begin{tabular}{|lll|}
+                \hline
+                %\multicolumn{3}{c}{Discriminator}           \\ 
+                Operation          & Output shape     & Stride \\ \hline
+                Input              & 2x256x256   & 1   \\
+                Conv 1x1           & 16x256x256 & 1    \\ 
+                Conv 3x3           & 32x256x256 & 1    \\ 
+                Conv 2x2           & 32x128x128 & 2    \\ \hline
+                Conv 3x3           & 64x128x128 & 1    \\ 
+                Conv 2x2           & 64x64x64 & 2      \\ \hline
+                Conv 3x3           & 80x64x64 & 1      \\ 
+                Conv 2x2           & 80x32x32 & 2      \\ \hline
+                Conv 3x3           & 96x32x32 & 1      \\ 
+                Conv 2x2           & 96x16x16 & 2      \\ \hline
+                Conv 3x3           & 112x16x16 & 1     \\ 
+                Conv 2x2           & 112x8x8 & 2       \\ \hline
+                Conv 3x3           & 128x8x8 & 1       \\ 
+                Conv 2x2           & 128x4x4 & 2       \\ \hline
+                Minibatch stddev
+                Conv 3x3           & 128x4x4   & 1     \\
+                Conv 4x4           & 128x1x1   & 1     \\ 
+                Fully connected    & 1x1 & 1         \\ \hline
+            \end{tabular}
+        }
+    \end{table}
+}
+
+\plainslide{Network architectures (transformer)}{
+    \begin{table}[t]
+        \centering
+        \scalebox{0.8}{
+            \begin{tabular}{|lll|}
+                \hline
+                %\multicolumn{3}{c}{Generator}           \\ 
+                Operation           & Output shape  & Stride \\ \hline
+                Input               & 1x256x256     & 1     \\
+                Conv 1x1 (1)           & 16x256x256    & 1     \\
+                Conv 3x3 (2)            & 32x128x128    & 2     \\    
+                Conv 3x3 (3)           & 64x64x64    & 2     \\ 
+                Conv 3x3 (4)           & 128x32x32    & 2    \\ 
+                Conv 3x3 (5)           & 256x16x16    & 2    \\ 
+                Conv 3x3 (6)           & 256x8x8     & 2    \\ 
+                Conv 3x3            & 256x4x4    & 2    \\ \hline
+                Transpose Conv 4x4 + (6)  & 256x8x8    & 2    \\
+                Transpose Conv 4x4 + (5) & 256x16x16    & 2    \\
+                Transpose Conv 4x4 + (4) & 128x32x32    & 2    \\
+                Transpose Conv 4x4 + (3) & 64x64x64    & 2    \\
+                Transpose Conv 4x4 + (2) & 32x128x128    & 2    \\
+                Transpose Conv 4x4 + (1)  & 16x256x256    & 2    \\
+                Conv 1x1            & 1x256x256    & 1     \\ \hline
+            \end{tabular}
+        }
+    \end{table}
 }
 
 \statementslideB{Reference batch}{images/reference_6x4.png}
@@ -282,10 +412,19 @@
 }
 
 
-\sectionslide{Concluding remarks}
+\begin{sectionframe}
+    \frametitle{Concluding Remarks}
+        \begin{itemize}
+            \item {\color[rgb]{1, 1, 1} Data augmentation using deep generative models is not feasible} \pause
+            \item {\color[rgb]{1, 1, 1} ...but it is possible} 
+        \end{itemize}
+\end{sectionframe}
 
-\statementslide{Questions?}{images/closed.png}
 
-\statementslide{Thank you}{images/opened.png}
+\statementslide{Questions?}{images/misc/opened.png}
+
+\statementslide{Questions?}{images/misc/closed.png}
+
+\statementslide{Thank you}{images/misc/opened.png}
 
 \end{document}
