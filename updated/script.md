@@ -7,6 +7,9 @@
 ...
 
 # Generative modelling
+...
+
+# What is a generative model?
 - Emphasize that it is from a probabilistic perspective.
 - Contrast with discriminative models.
 
@@ -20,10 +23,10 @@
 - Especially two deep generative models have been gaining a lot of attention lately, namely VAEs and GANs.
 
 # VAEs
-Add example applications (?)
+...
 
 # GANs
-Add example applications (?)
+...
 
 # GANs in practice
 ...
